@@ -21,7 +21,7 @@ The default timeout (time to wait for a TCP timeout) is 1.5 seconds (1500 milise
 
 Note that these are extremley conservative defaults and hence lead to low performance. To increase the performance for you're environment tweak these by setting the environment variables.
 
-Here is a final example of how to use the NetScan extension module:
+Here is an example of how to use the NetScan extension module:
 
 ```python
 >>> import os, netscan
@@ -31,6 +31,19 @@ Here is a final example of how to use the NetScan extension module:
 >>> os.environ["SCAN_TIMEOUT"] = "500"
 >>> netscan.run_scan(["10.0.0.1","10.0.0.28"])
 >>> ['10.0.0.1:53', '10.0.0.1:80', '10.0.0.28:135', '10.0.0.28:139', '10.0.0.28:445', '10.0.0.1:443', '10.0.0.28:3389', '10.0.0.28:7680', '10.0.0.1:8080', '10.0.0.1:8181', '10.0.0.1:21515', '10.0.0.28:27036', '10.0.0.1:49152', '10.0.0.1:49153', '10.0.0.1:49154', '10.0.0.28:49670', '10.0.0.28:57621']
+>>> exit()
+```
+
+Additionally you can scan for only a specific set of ports or service(s) via an optional secondary argument, like so.
+
+```python
+>>> import os, netscan
+>>> # Sets the concurrent number of ports to check at a time to 1500!
+>>> os.environ["SCAN_BATCH_SIZE"] = "1500"
+>>> # Sets the TCP Timeout to 0.5 seconds
+>>> os.environ["SCAN_TIMEOUT"] = "500"
+>>> netscan.run_scan(["10.0.0.1"],[80,443])
+>>> ['10.0.0.1:80', '10.0.0.1:443']
 >>> exit()
 ```
 

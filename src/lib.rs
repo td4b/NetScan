@@ -83,10 +83,25 @@ fn get_timeout() -> u64 {
     timeout
 }
 
+fn get_port_strategy(ports: Option<Vec<u16>>) -> PortStrategy {
+    if ports.is_none() {
+        // Sets the default explicitly to a serial range scan.
+        let port_ranges: PortStrategy = PortStrategy::Serial(SerialRange {
+            start: LOWEST_PORT_NUMBER,
+            end: TOP_PORT_NUMBER,
+        });
+        return port_ranges;
+    } 
+    // Else if the port range is set! Use it!
+    let port_ranges: PortStrategy = PortStrategy::pick(&None, ports, ScanOrder::Serial);
+    port_ranges
+    
+}
+
 /// Formats the sum of two numbers as string.
 #[pyfunction]
 #[allow(clippy::unnecessary_wraps)]
-fn run_scan(ipadd: Vec<String>) -> PyResult<Vec<String>> {
+fn run_scan(ipadd: Vec<String>, ports: Option<Vec<u16>>) -> PyResult<Vec<String>> {
     
     // here we are setting up our input parameters.
     let mut ips: Vec<IpAddr> = Vec::new();
@@ -114,14 +129,9 @@ fn run_scan(ipadd: Vec<String>) -> PyResult<Vec<String>> {
     // accessibility settings, set to false.
     let accessible: bool = false;
 
-    // removed for now since we cant handle logging in the extension.
-    // println!("[*] Running Scan with, Batch Size {}", batch_size);
+    // If ports are not set, use the default scan range (e.g.) all ports.
 
-    // Sets the default explicitly to a serial range scan.
-    let port_ranges: PortStrategy = PortStrategy::Serial(SerialRange {
-        start: LOWEST_PORT_NUMBER,
-        end: TOP_PORT_NUMBER,
-        });
+    let port_ranges: PortStrategy = get_port_strategy(ports);
 
     let scanner = Scanner::new(
         &ips,
