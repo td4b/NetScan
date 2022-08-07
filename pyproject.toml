@@ -1,0 +1,19 @@
+[build-system]
+requires = ["maturin>=0.13,<0.14"]
+build-backend = "maturin"
+
+[project]
+name = "netscan_TD4B"
+version = "1.0.2"
+description = "This is an API adaption to the Original RustScan, which extends it's functionality for use as a native Python module e.g. Extension Module."
+license = {file = "LICENSE"}
+readme = "README.MD"
+authors = [
+    {name = "TD4B", email="edwin.twest@gmail.com"},
+]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
