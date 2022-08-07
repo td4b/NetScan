@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "netscan_TD4B"
-version = "1.0.2"
+version = "1.0.0"
 description = "This is an API adaption to the Original RustScan, which extends it's functionality for use as a native Python module e.g. Extension Module."
 license = {file = "LICENSE"}
 readme = "README.MD"
