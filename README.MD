@@ -9,7 +9,11 @@ As of this commit, the Wheels distribution is built via RustScan version: 2.1.0 
 
 # How to Use.
 
-Using the module is simple. Simply install the dependency via pip.
+Using the module is simple. Simply install the latest version via pip.
+
+```bash
+pip install netscan-td4b
+```
 
 The default Batch Size is set to 10. The batch size is essentially the number of concurrent ports to check at a time e.g. check 10 ports at a time.
 
